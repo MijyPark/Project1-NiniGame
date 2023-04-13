@@ -1,43 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="ninisgamestylesheet" href="style-nini.css" />
-    <!--<meta http-equiv="X-UA-Compatible" content="ie=edge" /-->
-    <title>Nini's Lunch Adventure</title>
 
-  </head>
-  <body> 
-  
-    <canvas id="canvas" width="600" height="300"></canvas>
-    <div class ="game-intro" > 
-      <img src="./images/intro.jpg" alt="intro"/>
-      <hi> Nini's Lunch Adventure    
-      </hi>
-      <br/>
-      <button id="start-button">StartGame</button>
-      <p> It is time for Lunch! You must earn 100!</p>
-    </div>
-    <div class ="game-main">
-      <img src="./image/background.jpg" alt="game-main"/>
-    </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="ninisgame/styles/style-nini.css" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <title>Nini's Lunch Adventure</title>
+</head>
 
-    <div class ="game-win">
-    <img src="/./images/healthy.jpg" alt="healthykid"/>
-    <p> Great! You are a healthy kid!
-    </p>
-    </div>
+<body>
+  <div class="game-intro">
+    <img src="ninisgame/images/forest.jpg" alt="" />
+    <p>Nini's Lunch Adventure</p>
+    <button id="start">StartGame</button>
 
-    <div class ="gameover">
-    <img src="/./images/Gameover.jpg" alt="toothache"/>
-    <p>
-     You ate only unhealthy food today.....
-    </p>
-     </br>
-     <p>
-     Do you want to have second Lunch? Then press Restart button!
-     </p>
-     <button id="new-start">Restart</button>
-    </div>
-  </body>
+  </div>
+  <div id='game-main'>
+    <canvas id="canvas" width="300" height="600"></canvas>
+  </div>
+  <button id="restart">Restart Game</button>
+
+  <script src="ninisgame/nini.js"></script>
+</body>
+
+</html>

@@ -1,90 +1,127 @@
-const canvas = document.querySelector('#canvas');
-const ctx = canvas.getContext('2d');
+window.addEventListener('load', () => {
+  const canvas = document.querySelector('canvas')
+  canvas.style.backgroundColor = 'skyblue'
 
-function start() { 
- const introImage = new Image();
- introImage.src = "./images.intro.jpg"
- x: 0;
- speed: -1
- ctx.save();
- this.interval = setTimeout(startText, 10);
-}
+  const ctx = canvas.getContext('2d')
 
-function startText() {
- ctx.font = '56px fantasy';
- ctx.fillStyle = 'gold';
- ctx.fillText("Nini's Lunch Advcntrue", 50, 100);
- button 
- this.interval = setTimeout(updateGame, 30);    
-}    
+  const startBtn = document.querySelector('#start')
+  const restartBtn = document.querySelector('#restart')
 
-function clear() {
- ctx.clearRect(0, 0, 600, 300);}
+  const splashScreen = document.querySelector('.game-intro')
+  const gameMain = document.querySelector('#game-main')
 
-function updateGame() { 
- const nextImage -
-  new Image();
-mainPlayer.src = './images/ninini.png';
+  const playerImage = new Image()
+  playerImage.src = './ninisgame/images/ninini.png'
 
-class player {
-    constructor(img, width, height, x, y) {
-        this.img = img;
-        this.width = width;
-        this.height = height;
-        this.x = 0;
-        this.y = 0;
+  const sweetImage = new Image()
+  sweetImage.src = './ninisgame/images/sweets.jpg'
+
+  let isPlayerMovingLeft = false
+  let isPlayerMovingRight = false
+
+  let playerX = canvas.width / 2 - 25
+  const playerY = canvas.height - 50 - 25
+  const playerWidth = 50
+  const playerHeight = 50
+  let sweetY = 0
+  let sweetX = 0
+  const sweetWidth = 50
+  const sweetHeight = 25
+
+  let gameOver = false
+  let animateId
+
+
+  const drawPlayer = () => {
+    ctx.beginPath()
+
+    // Draw a rectangle
+    /* ctx.fillStyle = 'purple'
+    ctx.rect(canvas.width / 2 - 25,canvas.height - 50 - 25,50, 50)
+    ctx.fill() */
+
+    // Draw an image
+    ctx.drawImage(playerImage, playerX, playerY, playerWidth, playerHeight)
+
+    ctx.closePath()
+  }
+   
+  const drawSweets = () => {
+    ctx.beginPath()
+
+    ctx.drawImage(sweetImage, sweetX, sweetY, sweetWidth, sweetHeight)
+    ctx.closePath()
+  }
+
+  const animate = () => {
+    console.log('New frame')
+    // Draw all my things
+    ctx.clearRect(0,0,canvas.width, canvas.height)
+    drawPlayer()
+    // Update player position
+    console.log('Is moving left :', isPlayerMovingLeft)
+    console.log('Is moving right :', isPlayerMovingRight)
+    if (isPlayerMovingLeft && playerX > 0) {
+      playerX -= 1
+    } else if (isPlayerMovingRight && playerX < canvas.width - 50) {
+      playerX += 1
     }
 
-    move() {
-        let dice = 1 + Math.floor(6 * Math.random());
-        this.position = (this.position + dice) % map.length;
-        }
+    drawSweets()
+
+    //Check collision
+    if ( playerX < sweetX + sweetWidth &&
+      playerX + playerWidth > sweetX &&
+      playerY < sweetY + sweetHeight &&
+     playerHeight + playerY > sweetY) {
+        gameOver = true
+      }
+
+    sweetY += 1
+    if (sweetY > canvas.height) {
+      sweetY = -25
+      sweetX += 50
     }
 
-let player1 = {};
-player1.name = 'Nini';
-player1.img = new Image;
-img.src = "./images/ninini.png"
 
+    if (gameOver) {
+      cancelAnimationFrame(animateId)
+    } else {
+      // Make our function recursive
+      animateId = requestAnimationFrame(animate)
+    }
+  }
 
+  const startGame = () => {
+    startBtn.style.display = 'none'
+    splashScreen.style.display = "none"
+    gameMain.style.display = 'block'
 
+    animate()
+  }
 
+  startBtn.addEventListener('click', startGame)
 
+  restartBtn.addEventListener('click', () => {
+    window.location.reload()
+  })
 
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'a' || event.key === 'A' || event.key === 'ArrowLeft') {
+      isPlayerMovingLeft = true
+    }
+    if (event.key === 'd' || event.key === 'D' || event.key === 'ArrowRight') {
+      isPlayerMovingRight = true
+    }
+  })
 
+  window.addEventListener('keyup', (event) => {
+    if (event.key === 'a' || event.key === 'A' || event.key === 'ArrowLeft') {
+      isPlayerMovingLeft = false
+    }
+    if (event.key === 'd' || event.key === 'D' || event.key === 'ArrowRight') {
+      isPlayerMovingRight = false
+    }
+  })
 
-    document.addEventListener('keydown', (e) => {
-      
-        switch (e.keycode) {
-        case 38:
-         player.speedY -= 1;
-          break;
-        case 40:
-            player.sppedY += 1;
-          break;
-        case 37:
-            player.speedX -= 1;
-          break;
-        case 39:
-            player.speedX += 1;
-          break;
-        }
-       });
-
-updateNiniGame() {
-const ctx = ninisGame.context;
-const background = new Image();
-background.src = 
-ctx.fillStyle = this.color;
-ctx.fillRect(this.x, this.y, this.width, this.height);
- };
-      
-
-
- function updateGame() {
-    ninisGame.clear();
-    player.newPos();
-    player.update();
- }
-
- ninisGame.start();
+})

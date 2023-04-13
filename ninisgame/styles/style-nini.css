@@ -1,0 +1,41 @@
+body {
+    padding: 0;
+    text-align: center;
+}
+
+.game-intro {
+    float: left;
+    padding: 10% 10%;
+
+}
+
+.game-intro img {
+    width: 100%;
+}
+
+.game-intro p {
+    font-size: 100px;
+    font-family: "fantasy"
+}
+
+
+body button {
+    font-size: 30px;
+    background-color: green;
+    color: #f01b6d;
+    padding: 20px 40px;
+    border: 0;
+    box-shadow: 0;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+#game-main {
+    display: none;
+    padding: 20px 0px;
+    background-image: './images/background.jpg';
+}
+
+#restart {
+    display: none;
+}
