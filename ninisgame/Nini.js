@@ -1,6 +1,6 @@
 window.addEventListener('load', () => {
   const canvas = document.querySelector('canvas')
-  canvas.style.backgroundColor = 'skyblue'
+  canvas.style.backgroundImage = './ninisgame/images/background.jpg'
 
   const ctx = canvas.getContext('2d')
 
@@ -9,6 +9,7 @@ window.addEventListener('load', () => {
 
   const splashScreen = document.querySelector('.game-intro')
   const gameMain = document.querySelector('#game-main')
+  const gameEnd = document.querySelector('#game-end')
 
   const playerImage = new Image()
   playerImage.src = './ninisgame/images/ninini.png'
@@ -16,8 +17,11 @@ window.addEventListener('load', () => {
   const sweetImage = new Image()
   sweetImage.src = './ninisgame/images/sweets.jpg'
 
+ 
   let isPlayerMovingLeft = false
   let isPlayerMovingRight = false
+  let isPlayerMovingUp = false
+  let isPlayerMovingDown = false
 
   let playerX = canvas.width / 2 - 25
   const playerY = canvas.height - 50 - 25
@@ -34,13 +38,6 @@ window.addEventListener('load', () => {
 
   const drawPlayer = () => {
     ctx.beginPath()
-
-    // Draw a rectangle
-    /* ctx.fillStyle = 'purple'
-    ctx.rect(canvas.width / 2 - 25,canvas.height - 50 - 25,50, 50)
-    ctx.fill() */
-
-    // Draw an image
     ctx.drawImage(playerImage, playerX, playerY, playerWidth, playerHeight)
 
     ctx.closePath()
@@ -48,15 +45,19 @@ window.addEventListener('load', () => {
    
   const drawSweets = () => {
     ctx.beginPath()
-
     ctx.drawImage(sweetImage, sweetX, sweetY, sweetWidth, sweetHeight)
     ctx.closePath()
   }
 
+  const drawScore = () => {
+    ctx.beginPathe()
+    ctx.drawImage 
+  }
   const animate = () => {
     console.log('New frame')
     // Draw all my things
     ctx.clearRect(0,0,canvas.width, canvas.height)
+    // Make a drawScore function to draw text
     drawPlayer()
     // Update player position
     console.log('Is moving left :', isPlayerMovingLeft)
@@ -66,10 +67,16 @@ window.addEventListener('load', () => {
     } else if (isPlayerMovingRight && playerX < canvas.width - 50) {
       playerX += 1
     }
+    console.log('Is moving up :', isPlayerMovingUp)
+    console.log('Is moving down :', isPlayerMovingDown)
+    if (isPlayerMovingUp && playerX > 0) {
+      playerY -= 1
+    } else if (isPlayerMovingDown && playerX < canvas.width - 50) {
+      playerY += 1
+    }
 
     drawSweets()
 
-    //Check collision
     if ( playerX < sweetX + sweetWidth &&
       playerX + playerWidth > sweetX &&
       playerY < sweetY + sweetHeight &&
@@ -78,14 +85,20 @@ window.addEventListener('load', () => {
       }
 
     sweetY += 1
+
     if (sweetY > canvas.height) {
       sweetY = -25
       sweetX += 50
+      // Increment score
     }
 
 
     if (gameOver) {
       cancelAnimationFrame(animateId)
+      const gameOverImage = new Image()
+      gameOverImage.src = './ninisgame/images/Gameover.jpg'
+    
+      
     } else {
       // Make our function recursive
       animateId = requestAnimationFrame(animate)
